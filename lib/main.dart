@@ -55,6 +55,8 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.all(8.0),
               child: TextFormField(
                 controller: _phone,
+                maxLength: 10,
+                keyboardType: TextInputType.number,
                 decoration: const InputDecoration(
                     prefixIcon: Icon(Icons.phone_android),
                     border: OutlineInputBorder(),
@@ -70,12 +72,14 @@ class _HomeState extends State<Home> {
             const SizedBox(height: 20.0),
             ElevatedButton(
                 onPressed: () {
-                  validate;
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: ((context) => Welcome(
-                              email: _email.text, phone: _phone.text))));
+                  final FormState = formKey.currentState;
+                  if (FormState!.validate()) {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: ((context) => Welcome(
+                                email: _email.text, phone: _phone.text))));
+                  }
                 },
                 child: const Text('go to list')),
           ],
